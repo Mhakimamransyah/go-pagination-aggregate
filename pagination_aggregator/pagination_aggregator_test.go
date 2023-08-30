@@ -251,7 +251,7 @@ func TestGetWithtTimeoutContext(t *testing.T) {
 func TestMain(t *testing.M) {
 
 	port := 1234
-	host := "http://0.0.0.0"
+	host := "http://localhost"
 
 	testTables = NewTestData(host, port, &SupplySuccessData{})
 
