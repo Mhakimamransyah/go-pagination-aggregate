@@ -1,0 +1,25 @@
+name: 'Continous integration'
+
+on : 
+  workflow_dispatch:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.19'
+      - name: Run tests
+        run: go test -race -coverprofile=coverage.out -covermode=atomic ./pagination_aggregator
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        
