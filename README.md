@@ -93,9 +93,9 @@ func (obj UsersResponse) GetBoundary() int {
 }
 
 pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
-		Client: &http.Client{},
-		URL: "https://reqres.in/api/users?page=%d&per_page=5",
-	  JsonPage: &UsersResponse{},
+ 	Client: &http.Client{},
+	URL: "https://reqres.in/api/users?page=%d&per_page=5",
+	JsonPage: &UsersResponse{},
 })
 
 if err != nil {
@@ -121,29 +121,29 @@ for _, val := range users {
 You can define number of concurrent requests that will be made using ```Concurrent``` configuration
 ```
 pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
-		Client: &http.Client{},
-		URL: "https://your.pagination.com?page=%d&per_page=5",
-	  JsonPage: &UsersResponse{},
-    Concurrent: 2,
+	Client: &http.Client{},
+	URL: "https://your.pagination.com?page=%d&per_page=5",
+	JsonPage: &UsersResponse{},
+	Concurrent: 2,
 })
 ```
 if you have to make 100 requests and you set ```Concurrent = 50``` then it will make 2 batch asynchronous requests. 
 You can also manipulate data for every batch with overriding  ```ConcurrentBatch``` function like this.
 ```
 pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
-		Client: &http.Client{},
-		URL: "https://your.pagination.com?page=%d&per_page=5",
-	  JsonPage: &UsersResponse{},
-    Concurrent: 2,
-    ConcurrentBatch: func(batchResult []paginationaggregator.HttpInteraction) error {
+	Client: &http.Client{},
+	URL: "https://your.pagination.com?page=%d&per_page=5",
+	JsonPage: &UsersResponse{},
+    	Concurrent: 2,
+    	ConcurrentBatch: func(batchResult []paginationaggregator.HttpInteraction) error {
 
-       for _, val := range batchResult {
-				 tmpData := UsersResponse{}
-				 if err := json.Unmarshal([]byte(val.Response.Data), &tmpData); err != nil {
-					 continue
-				 }
-         // INSERT tmpData TO DB ...
+       		for _, val := range batchResult {
+			 tmpData := UsersResponse{}
+			 if err := json.Unmarshal([]byte(val.Response.Data), &tmpData); err != nil {
+				 continue
 			 }
+         		// INSERT tmpData TO DB ...
+		}
 
        // if return error then it will stop to processing all next batch requests and returning an error, otherwise it will continue processing batch requests
        return nil
@@ -155,24 +155,24 @@ pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
 You can manipulate integer iterator value using override ```Pointer``` function like this
 ```
 pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
-		Client: &http.Client{},
-		URL: "https://your.pagination.com?page=%d&per_page=5",
-	  JsonPage: &UsersResponse{},
-    Pointer : func(current *int, boundary int) {
-			*current = *current + 2
-		},
+	Client: &http.Client{},
+	URL: "https://your.pagination.com?page=%d&per_page=5",
+	JsonPage: &UsersResponse{},
+    	Pointer : func(current *int, boundary int) {
+		*current = *current + 2
+	},
 })
 ```
 it will change requests page which add 2 on every pages so when pages 1 it will requests pages 3. In case you need to consume paginated api response with limit-offset params you can use
 ```
 pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
-		Client: &http.Client{},
-		URL: "https://your.pagination.com?offset=%d&limit=10",
-	  JsonPage: &UsersResponse{},
-    Pointer : func(current *int, boundary int) {
-			// change offset
-			*current = (*current - 1) * 10
-		},
+	Client: &http.Client{},
+	URL: "https://your.pagination.com?offset=%d&limit=10",
+	JsonPage: &UsersResponse{},
+    	Pointer : func(current *int, boundary int) {
+		// change offset
+		*current = (*current - 1) * 10
+	},
 })
 ```
 it will shift 10 number offset value while keeping limit size
