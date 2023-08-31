@@ -1,7 +1,7 @@
 # go-pagination-aggregate
 [![codecov](https://codecov.io/gh/Mhakimamransyah/go-pagination-aggregate/graph/badge.svg?token=SJHKHOYMDL)](https://codecov.io/gh/Mhakimamransyah/go-pagination-aggregate) ![GitHub go.mod Go version (subdirectory of monorepo)](https://img.shields.io/github/go-mod/go-version/Mhakimamransyah/go-pagination-aggregate?logo=go)  [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mhakimamransyah_mhakim_7agu45&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=mhakimamransyah_mhakim_7agu45)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mhakimamransyah_mhakim_7agu45&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mhakimamransyah_mhakim_7agu45) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mhakimamransyah_mhakim_7agu45&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=mhakimamransyah_mhakim_7agu45)
 
-A Library which allows you to merge all api json responses which implement pagination into single data structures. 
+A Library allows you to merge all api json responses which implement pagination into single data structures. 
 there are many api pagination mechanisms that let us interact with it. So far this library **only supports page-sized and offset-limit pagination** 
 which use integer values to iterate and shift data pointer.
 ## Usage
@@ -13,7 +13,7 @@ https://your.api.com?page=%d&per_page=100
 In case you dont want to specify last pages value using your own, you need to implement this interface that represent single json response 
 ```
 type JsonMetaPages interface {
-	GetBoundary() int
+    GetBoundary() int
 }
 ```
 or you can just specify last pages of your paginate api with ```boundary``` configurations.
