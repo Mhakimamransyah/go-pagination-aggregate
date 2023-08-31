@@ -1,4 +1,6 @@
 # go-pagination-aggregate
+[![codecov](https://codecov.io/gh/Mhakimamransyah/go-pagination-aggregate/graph/badge.svg?token=SJHKHOYMDL)](https://codecov.io/gh/Mhakimamransyah/go-pagination-aggregate) ![GitHub go.mod Go version (subdirectory of monorepo)](https://img.shields.io/github/go-mod/go-version/Mhakimamransyah/go-pagination-aggregate?logo=go)    
+
 A Library which allows you to merge all api json responses which implement pagination into single data structures. 
 there are many api pagination mechanisms that let us interact with it. So far this library **only supports page-sized and offset-limit pagination** 
 which use integer values to iterate and shift data pointer.
