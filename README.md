@@ -4,6 +4,14 @@
 A Library allows you to merge all api json responses which implement pagination into single data structures. 
 there are many api pagination mechanisms that let us interact with it. So far this library **only supports page-sized and offset-limit pagination** 
 which use integer values to iterate and shift data pointer.
+
+## Contents
+- [Usage](https://github.com/Mhakimamransyah/go-pagination-aggregate#usage)
+- [Set up and configure instance](https://github.com/Mhakimamransyah/go-pagination-aggregate#setup-and-configure-instance)
+- [Configure asynchronous requests](https://github.com/Mhakimamransyah/go-pagination-aggregate#configure-asynchronous-requests)
+- [Pagination with limit and offset params](https://github.com/Mhakimamransyah/go-pagination-aggregate#pagination-with-limit-and-offset-params)
+- [Example](https://github.com/Mhakimamransyah/go-pagination-aggregate#example)
+  
 ## Usage
 You need to defined full url path in strings with integer placeholder which will use as iterator request, 
 example :
@@ -73,6 +81,7 @@ Response
   }
 }
 ```
+
 create an instance and get the results
 ```
 type Users struct {
@@ -102,12 +111,14 @@ pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
 
 if err != nil {
    fmt.Println(err.Error())
+   return
 }
 
 users, err := pag.Get()
 
 if err != nil {
-		fmt.Println(err.Error())
+   fmt.Println(err.Error())
+   return
 }
 
 // loop thorugh all responses
@@ -179,7 +190,9 @@ pag, err := NewPaginationAggregator(&PaginationAggregatorConfig{
 ```
 it will shift 10 number offset value while keeping limit size
 
-
+### Example 
+- [Simple usage](https://codefile.io/f/GhnGDEP9Y6)
+- [Insert response to database for each batch](https://codefile.io/f/QuGgwhWSO2)
 
 
 
